@@ -1,0 +1,15 @@
+<ion-view title="My Schedule">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item class="item item-thumbnail-left item-icon-right" ng-repeat="event in scheduledEvents" href="#/app/events/{{event.IdEvento}}">
+        <img src="../www/img/gen_img_logo@2x.png">
+        <h2>{{event.NombreEvento}}</h2>
+        <p>De {{ event.FxInicio | date:'dd MMM'}} a {{ event.FxFin | date:'dd MMM'}} </p>
+        <i class="icon ion-chevron-right"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

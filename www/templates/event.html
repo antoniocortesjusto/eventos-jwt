@@ -1,0 +1,21 @@
+<ion-view title="Event Agenda">
+	  <ion-content class="has-header">
+	  <div class="card">
+		 	<div class="item item-text-wrap item-thumbnail-left">
+		 		<img src="../www/img/gen_img_logo@2x.png">
+				<h1>{{evento.NombreEvento}}</h1>
+		 	</div>
+		</div>
+	    <ion-list>
+	    	<div ng-repeat="conferencia in conferencias">
+		    	<ion-item class="item-divider">
+		    		De {{ conferencia.FxInicio | date:'h:mm a'}} a {{ conferencia.FxFin | date:'h:mm a'}} 
+		  		</ion-item >
+		  		<ion-item class="item-icon-right" href="#/app/conference/{{conferencia.IdConferencia}}">
+		    		{{conferencia.TituloConferencia}}
+		    		<i class="icon ion-chevron-right"></i>
+		  		</ion-item>
+		  	</div>
+	    </ion-list>
+	  </ion-content>
+</ion-view>

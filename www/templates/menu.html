@@ -1,0 +1,31 @@
+<ion-side-menus>
+
+  <ion-pane ion-side-menu-content>
+    <ion-nav-bar class="bar-repsol nav-title-slide-ios7">
+      <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
+
+  <ion-side-menu side="left">
+    <header class="bar bar-header bar-repsol">
+      <img src="../www/img/logo@2x.png"  class="repsol-menu-logo" alt="Logo Repsol">  
+    </header>
+    <ion-content class="has-header" scroll="false">
+      <ion-list>
+        <ion-item class="item-icon-left" nav-clear menu-close href="#/app/events">
+          <i class="icon ion-ios7-people"></i>
+          EVENTS
+        </ion-item>
+        <ion-item class="item-icon-left" nav-clear menu-close href="#/app/schedule">
+          <i class="icon ion-ios7-calendar"></i>
+          MY SCHEDULE
+        </ion-item>
+        <ion-item class="item-icon-left" nav-clear menu-close ng-click="login()">
+          <i class="icon ion-key"></i>
+          LOGIN
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

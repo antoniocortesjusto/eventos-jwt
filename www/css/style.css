@@ -1,0 +1,79 @@
+/* Empty. Add your own CSS if you like */
+
+@font-face {
+  font-family: "Repsol";
+  src: url('../fonts/Repsol-Regular.ttf') format('truetype'),  url('Repsol-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal; 
+}
+
+ @font-face {
+  font-family: "Repsol";
+  src: url('../fonts/Repsol-Regular.ttf') format('truetype'),  url('Repsol-Light.ttf') format('truetype');
+  font-weight:  lighter;
+  font-style: normal; 
+}
+
+
+body{
+	font-family: Repsol;
+	font-weight: normal;
+}
+
+.bar .title{
+	height: 44px;
+	font-size: 24px;
+	font-family: Repsol;
+	font-weight: normal;
+}
+
+.bar.bar-repsol {
+  background-color: #FF8200;
+  height: 44px;
+}
+
+.bar-repsol h1{
+	color: #FFFFFF;
+	font-weight: normal;
+}
+
+.bar-repsol .icon{
+	color: #FFFFFF;
+}
+
+.repsol-menu-logo{
+	height: 32px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	margin-left: 23%;
+}
+
+.button.button-repsol {
+    border-color: #FFFFFF;
+    background-color: #FF8200;
+    color: #FFFFFF; 
+}
+
+.button-clear.button-clear{
+	color: #FFFFFF;
+}
+
+ion-side-menu ion-content, ion-side-menu ion-content  ion-list .list ion-item, ion-side-menu ion-content ion-list .list ion-item a.item-content{
+	background-color: #f6f3f0;
+	border-color: #ACA39A;
+	color: #ACA39A;
+	font-weight: bold
+}
+
+ion-list .list ion-item:first-child  {
+	border-top: none;
+}
+
+
+.titulo-evento{
+	font-size: 16px;
+}
+
+.card h1{
+	margin-top: 10px;
+}

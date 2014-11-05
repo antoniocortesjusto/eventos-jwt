@@ -1,0 +1,43 @@
+<ion-view title="Conference">
+	  <ion-content class="has-header">
+	  	<div class="card">
+		 	<div class="item item-text-wrap item-icon-right">
+				<h1>{{conferencia.TituloConferencia}}</h1>
+				<i class="icon ion-ios7-star-outline"></i>
+		 	</div>
+		</div>
+	    <ion-list>
+	  		<ion-item class="item-icon-left" href="#">
+	  			<i class="icon ion-ios7-calendar"></i>
+	    		From: {{conferencia.FxInicio | date: 'd/M/yy h:mm a'}} <br>
+	    		To:   {{conferencia.FxFin | date: 'd/M/yy h:mm a'}}
+	  		</ion-item>
+	  		<ion-item class="item-icon-left" href="#">
+	  			<i class="icon ion-map"></i>
+	    		Ubicación
+	  		</ion-item>
+	  		<ion-item  class="item-divider">
+	    		1 Speaker
+	  		</ion-item>
+	  		<ion-item  class="item-icon-left" href="#">
+	  			<i class="icon ion-ios7-person"></i>
+	    		Speaker
+	  		</ion-item >
+	  		<ion-item  class="item-divider">
+	    		3 Going
+	  		</ion-item>
+	  		<ion-item  class="item-icon-left" href="#">
+	  			<i class="icon ion-ios7-person"></i>
+	    		Persona 1
+	  		</ion-item >
+	  		<ion-item  class="item-icon-left" href="#">
+	  			<i class="icon ion-ios7-person"></i>
+	    		Persona 2
+	  		</ion-item >
+	  		<ion-item  class="item-icon-left" href="#">
+	  			<i class="icon ion-ios7-person"></i>
+	    		Persona 3
+	  		</ion-item >
+	    </ion-list>
+	  </ion-content>
+</ion-view>
