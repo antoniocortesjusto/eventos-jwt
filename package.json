@@ -1,5 +1,5 @@
 {
-  "name": "eventos",
+  "name": "eventos-oauth",
   "version": "1.0.0",
   "description": "eventos: An Ionic project",
   "dependencies": {
