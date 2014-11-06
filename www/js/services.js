@@ -1,5 +1,54 @@
 var services = angular.module('events.services', []);
 
+// services.factory('authInterceptor', function ($rootScope, $q, $window) {
+//   return {
+
+//     request: function (config) {
+//       baseUrl = 'http://127.0.0.1:3000/';
+//       var deferred = $q.defer();
+//       config.headers = config.headers || {};
+//       console.log('URL: ', config.url);
+//       console.log(config.url.indexOf(baseUrl));
+//       if(config.url.indexOf(baseUrl)>=0){
+//         if ($window.sessionStorage.token ) {
+//         config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+//         deferred.resolve(config);
+//         }
+//         else{
+          
+//           if (config.url.match(/\.*authenticate/)){
+//             deferred.resolve(config);
+//           }
+//           else{
+//             console.log('ServicioAutenticacion.login()');
+//             $rootScope.$broadcast('AuthenticationNeeded', { 'AuthenticationNeeded' : true });
+//             $rootScope.$on('Authenticated', function(event,message) {
+//               console.log('En el on');
+//               if(message.Authenticated === true) {
+//                 console.log('LOGGED IN! sending request!');
+//                 //config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+//                  deferred.resolve(config);
+//               } 
+//             });
+            
+//           }
+//         }
+//       }
+
+//       return deferred.promise;
+      
+//     },
+//     response: function (response) {
+//       if (response.status === 401) {
+//         // handle the case where the user is not authenticated
+//       }
+//       return response || $q.when(response);
+//     }
+//   };
+// });
+
+
+
 services.factory('authInterceptor', function ($rootScope, $q, $window) {
   return {
     request: function (config) {
@@ -9,14 +58,50 @@ services.factory('authInterceptor', function ($rootScope, $q, $window) {
       }
       return config;
     },
-    response: function (response) {
+    responseError: function (response) {
+      console.log('Status: ', response.status);
       if (response.status === 401) {
         // handle the case where the user is not authenticated
+        console.log('Response interceptor');
+        $rootScope.$broadcast('AuthenticationNeeded', { 'AuthenticationNeeded' : true });
       }
-      return response || $q.when(response);
+      return response; //|| $q.when(response);
     }
   };
 });
+
+services.factory('ServicioAutenticacion', function($http){
+
+  var baseUrl ='http://127.0.0.1:3000/authenticate';
+  // Create the login modal that we will use later
+  
+  var service = {
+
+    doLogin : function (loginData) {
+      return $http.post(baseUrl,loginData);
+    }
+
+  };
+  
+  return service;
+});
+
+services.factory('ServicioLoginModal', function($http){
+
+  var baseUrl ='http://127.0.0.1:3000/authenticate';
+  // Create the login modal that we will use later
+  
+  var service = {
+
+    doLogin : function (loginData) {
+      return $http.post(baseUrl,loginData);
+    }
+
+  };
+  
+  return service;
+});
+
 
 services.factory('ServicioEventos', function($http){
 
@@ -66,16 +151,6 @@ services.factory('ServicioConfererencias', function($http){
 services.factory('ServicioEventosCalendario', function($http){
 
   var baseUrl ='http://127.0.0.1:3000/api/scheduledevents/';
-  var events = [
-    { IdEvento: 1, NombreEvento: 'Evento 1', FxInicio: 'Fecha' , FxFin: 'Fecha', FxCaduca: 'Fecha', Imagen: 'URL'},
-    { IdEvento: 2, NombreEvento: 'Evento 2', FxInicio: 'Fecha' , FxFin: 'Fecha', FxCaduca: 'Fecha', Imagen: 'URL'},
-    { IdEvento: 3, NombreEvento: 'Evento 3', FxInicio: 'Fecha' , FxFin: 'Fecha', FxCaduca: 'Fecha', Imagen: 'URL'},
-    { IdEvento: 4, NombreEvento: 'Evento 4', FxInicio: 'Fecha' , FxFin: 'Fecha', FxCaduca: 'Fecha', Imagen: 'URL'},
-    { IdEvento: 5, NombreEvento: 'Evento 5', FxInicio: 'Fecha' , FxFin: 'Fecha', FxCaduca: 'Fecha', Imagen: 'URL'},
-    { IdEvento: 6, NombreEvento: 'Evento 6', FxInicio: 'Fecha' , FxFin: 'Fecha', FxCaduca: 'Fecha', Imagen: 'URL'}
-  ];
-
-
   var service ={
 
     //Obtener todos los eventos visibles para el usuario

@@ -28,7 +28,6 @@ angular.module('events', ['ionic', 'events.controllers', 'events.services'])
       url: "/app",
       abstract: true,
       templateUrl: "templates/menu.html",
-      controller: 'AppCtrl'
     })
 
     .state('app.calendar', {

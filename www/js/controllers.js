@@ -23,27 +23,56 @@ angular.module('events.controllers', [])
 
 })
 
-.controller('AuthCtrl', function ($scope, $http, $window) {
+.controller('AuthCtrl', function ($rootScope, $scope, $state, $window, ServicioAutenticacion) {
   console.log('AuthCtrl');
   $scope.loginData = {username: 'username', password: 'password'};
   $scope.message = '';
-  $scope.doLogin = function () {
-    $http
-      .post('http://127.0.0.1:3000/authenticate', $scope.loginData)
-      .success(function (data, status, headers, config) {
-        console.log('Success - token: ', data.token);
-        $window.sessionStorage.token = data.token;
-        $scope.modal.hide();
-      })
-      .error(function (data, status, headers, config) {
-        // Erase the token if the user fails to log in
-        delete $window.sessionStorage.token;
+  var loginData = $scope.loginData;
 
+  $rootScope.$on('Authenticated', function(event,message) {
+    
+    if(message.Authenticated === true) {
+      console.log('LOGGED IN!');
+      $scope.closeLogin();
+      $state.go($state.current, {}, {reload: true});
+    } else{
+      console.log('NOT LOGGED IN!');
+      $scope.login();
+    }
+  });
+
+    $rootScope.$on('AuthenticationNeeded', function(event,message) {
+    
+      if(message.AuthenticationNeeded === true) {
+        console.log('Authentication Needed!');
+        $scope.login();
+        
+      } else{
+        console.log('NOT Authentication Needed!');
+        $scope.closeLogin();
+      }
+    });
+
+
+  function handleDoLoginSuccess (data, status, headers, config) {
+    console.log('Success - token: ', data.token);
+    $window.sessionStorage.token = data.token;
+    $rootScope.$broadcast('Authenticated', { 'Authenticated' : true });
+    //$scope.closeLogin();
+
+  }
+  function handleDoLoginError (data, status, headers, config) {
+    // Erase the token if the user fails to log in
+        delete $window.sessionStorage.token;
+        $rootScope.$broadcast('Authenticated', { 'Authenticated' : false });
         // Handle login errors here
         $scope.message = 'Error: Invalid user or password';
         console.log(data.error);
-      });
+  }
+  $scope.doLogin = function () {
+    ServicioAutenticacion.doLogin(loginData).success(handleDoLoginSuccess).error(handleDoLoginError);
   };
+
 })
 
 .controller('ScheduleCtrl', function($scope, ServicioEventosCalendario){
@@ -55,6 +84,9 @@ angular.module('events.controllers', [])
 
   function handleGetEventosError (data, status){
     console.log('Error ==> data ', data, ' status ', status);
+    if(status == 401){
+      console.log('Mostrar login');
+    }
   };
 
   ServicioEventosCalendario.getEventos().success(handleGetEventosSuccess).error(handleGetEventosError);
@@ -70,6 +102,9 @@ angular.module('events.controllers', [])
 
   function handleGetEventosError (data, status){
     console.log('Error ==> data ', data, ' status ', status);
+    if(status == 401){
+      console.log('Mostrar login');
+    }
   };
 
   ServicioEventos.getEventos().success(handleGetEventosSuccess).error(handleGetEventosError);
@@ -85,6 +120,9 @@ angular.module('events.controllers', [])
 
   function handleGetEventoError (data, status){
     console.log('Error ==> data ', data, ' status ', status);
+    if(status == 401){
+      console.log('Mostrar login');
+    }
   };
 
   function handleGetConferenciasSuccess (data, status){
@@ -94,6 +132,9 @@ angular.module('events.controllers', [])
 
   function handleGetConferenciasError (data, status){
     console.log('Error ==> data ', data, ' status ', status);
+    if(status == 401){
+      console.log('Mostrar login');
+    }
   };
 
   ServicioEventos.getEvento(IdEvento).success(handleGetEventoSuccess).error(handleGetEventoError);
@@ -109,6 +150,9 @@ angular.module('events.controllers', [])
 
   function handleGetConferenciaError (data, status){
     console.log('Error ==> data ', data, ' status ', status);
+    if(status == 401){
+      console.log('Mostrar login');
+    }
   };
 
   ServicioConfererencias.getConferencia(IdConferencia).success(handleGetConferenciaSuccess).error(handleGetConferenciaError);
